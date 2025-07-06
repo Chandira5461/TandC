@@ -702,7 +702,7 @@ Try your luck: tc-auditor.com
                     </div>
                     <div>
                       <div className="text-xs text-green-300 font-bold mb-1">Real Clause #{index + 1}</div>
-                      <p className="text-sm text-gray-200 leading-relaxed">{clause.text}</p>
+                      <p className="text-xs text-gray-200 leading-tight font-mono">{clause.text}</p>
                     </div>
                   </div>
                 </CardContent>
