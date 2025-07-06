@@ -92,7 +92,19 @@ const TCAuditorGame = () => {
     let interval;
     if (gameState === 'reading' && timeLeft > 0) {
       interval = setInterval(() => {
-        setTimeLeft(prev => prev - 1);
+        setTimeLeft(prev => {
+          const newTime = prev - 1;
+          
+          // Haptic feedback for last 10 seconds
+          if (newTime <= 10 && newTime > 0) {
+            // Vibrate on mobile devices
+            if (navigator.vibrate) {
+              navigator.vibrate(50); // 50ms vibration
+            }
+          }
+          
+          return newTime;
+        });
       }, 1000);
     } else if (timeLeft === 0 && gameState === 'reading') {
       // Stop audio when timer ends
