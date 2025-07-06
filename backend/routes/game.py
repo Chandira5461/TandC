@@ -107,16 +107,19 @@ async def submit_game_result(
                 
                 if percentage < 30:  # Rarely found
                     bonus = 0.5
+                    rarity = "rare"
                 elif percentage < 70:  # Moderately found
                     bonus = 0.3
+                    rarity = "moderate"
                 else:  # Commonly found
                     bonus = 0.1
+                    rarity = "common"
                 
                 bonus_score += bonus
                 legal_detector_breakdown[clause_id] = {
                     "percentage": percentage,
                     "bonus": bonus,
-                    "rarity": "rare" if percentage < 30 else "moderate" if percentage < 70 else "common"
+                    "rarity": rarity
                 }
             else:
                 # First time this clause is found
