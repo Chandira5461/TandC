@@ -215,12 +215,41 @@ const TCAuditorGame = () => {
 
       const scoreData = response.data;
       
+      // Calculate new scoring system
+      const correctAnswers = scoreData.correct_answers;
+      const clausesIdentified = correctAnswers.length;
+      
+      // Calculate score out of 100 based on rarity
+      let totalScore = 0;
+      const scoreBreakdown = {};
+      
+      if (scoreData.legal_detector_breakdown) {
+        Object.entries(scoreData.legal_detector_breakdown).forEach(([clauseId, data]) => {
+          let points = 0;
+          if (data.rarity === 'rare') {
+            points = 30;
+          } else if (data.rarity === 'moderate') {
+            points = 20;
+          } else {
+            points = 15; // common
+          }
+          
+          totalScore += points;
+          scoreBreakdown[clauseId] = {
+            ...data,
+            points: points
+          };
+        });
+      } else {
+        // Fallback scoring if no breakdown available
+        totalScore = clausesIdentified * 20; // 20 points per correct clause
+      }
+      
       const finalScore = {
-        base: scoreData.base_score,
-        bonus: scoreData.bonus_score,
-        total: scoreData.total_score,
-        maxScore: scoreData.max_score,
-        breakdown: scoreData.legal_detector_breakdown
+        clausesIdentified: clausesIdentified,
+        totalScore: Math.min(totalScore, 100), // Cap at 100
+        maxScore: 100,
+        breakdown: scoreBreakdown
       };
 
       setScore(finalScore);
