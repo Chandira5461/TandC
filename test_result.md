@@ -143,15 +143,18 @@ backend:
 
   - task: "Game Statistics"
     implemented: true
-    working: false
+    working: true
     file: "/app/backend/routes/game.py"
-    stuck_count: 1
+    stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "testing"
         comment: "GET /api/stats/{date} endpoint returns 500 error. Issue appears to be related to MongoDB ObjectId serialization: ValueError: [TypeError(\"'ObjectId' object is not iterable\"), TypeError('vars() argument must have __dict__ attribute')]"
+      - working: true
+        agent: "testing"
+        comment: "GET /api/stats/{date} endpoint now works correctly. Successfully tested with real business data for Meta (2025-07-07) and TikTok (2025-07-08). The endpoint returns proper statistics including total_players and clause_stats."
 
   - task: "Error Handling for Non-existent Games"
     implemented: true
