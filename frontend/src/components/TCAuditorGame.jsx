@@ -531,7 +531,10 @@ Try your luck: tc-auditor.com
       {gameState === 'quiz' && (
         <div className="container mx-auto px-4 py-8 max-w-4xl">
           <div className="mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-cyan-300">🎯 Clause Identification</h2>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-2 text-cyan-300">🎯 Clause Identification</h2>
+              <p className="text-sm text-gray-400 italic mb-2">Auditing: {currentGame.title}</p>
+            </div>
             <p className="text-gray-300 mb-4">
               Select exactly 5 clauses that were actually present in the document you just read.
             </p>
