@@ -363,6 +363,16 @@ Can you spot the absurd clauses? Play at tc-auditor.com`;
               <div className="text-xl text-gray-600 mb-4">Legal Detector Score</div>
               <div className="text-sm text-gray-500">
                 Base Score: {score.base}/5 + Bonus: {score.bonus.toFixed(1)}
+                {score.breakdown && Object.keys(score.breakdown).length > 0 && (
+                  <div className="mt-2 text-xs">
+                    {Object.entries(score.breakdown).map(([clauseId, data]) => (
+                      <div key={clauseId} className="flex justify-between">
+                        <span>Clause {clauseId.replace('rac', '')}: {data.rarity}</span>
+                        <span>+{data.bonus}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
             
