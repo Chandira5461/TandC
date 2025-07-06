@@ -412,7 +412,22 @@ Try your luck: tc-auditor.com
               The daily legal challenge that tests your ability to spot absurd clauses
             </p>
             
-            <div className="bg-black/30 backdrop-blur-sm rounded-2xl p-6 shadow-2xl mb-8 border border-purple-500/30">
+            <div className="text-center mb-8">
+              <Button 
+                onClick={startGame}
+                size="lg"
+                className="text-xl md:text-2xl px-8 py-6 md:px-12 md:py-8 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 shadow-2xl shadow-cyan-500/25 rounded-2xl font-bold border-2 border-cyan-400/50"
+              >
+                🔍 Expose the Fine Print
+              </Button>
+              {currentGame && (
+                <p className="text-sm text-gray-400 mt-3 italic">
+                  Today's Challenge: {currentGame.title}
+                </p>
+              )}
+            </div>
+            
+            <div className="bg-black/30 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-purple-500/30">
               <h2 className="text-2xl md:text-3xl font-bold mb-6 text-cyan-300">⚡ How to Play</h2>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="bg-gradient-to-br from-blue-600/30 to-cyan-600/30 rounded-xl p-4 backdrop-blur-sm border border-cyan-500/30">
@@ -444,16 +459,6 @@ Try your luck: tc-auditor.com
                 </div>
               </div>
             </div>
-          </div>
-          
-          <div className="text-center">
-            <Button 
-              onClick={startGame}
-              size="lg"
-              className="text-xl md:text-2xl px-8 py-6 md:px-12 md:py-8 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 shadow-2xl shadow-cyan-500/25 rounded-2xl font-bold border-2 border-cyan-400/50"
-            >
-              🚀 Play Today's Audit
-            </Button>
           </div>
         </div>
       )}
