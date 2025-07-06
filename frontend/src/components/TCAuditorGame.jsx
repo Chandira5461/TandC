@@ -294,25 +294,26 @@ const TCAuditorGame = () => {
     }
   };
 
+  const getScoreDescription = (clausesFound) => {
+    const descriptions = {
+      5: "🕵️ Master Auditor - Nothing gets past you!",
+      4: "📋 Senior Investigator - Sharp eye for shenanigans!",
+      3: "🔍 Junior Detective - Getting warmer!",
+      2: "📄 Intern Auditor - More coffee needed!",
+      1: "🤷 Casual Clicker - Just like the rest of us!",
+      0: "😅 Terms & Conditions Victim - Welcome to the club!"
+    };
+    return descriptions[clausesFound] || descriptions[0];
+  };
+
   const generateShareText = () => {
-    const realClauseIds = currentGame.real_absurd_clauses.map(c => c.id);
-    const emoji = currentGame.quiz_order.map(clauseId => {
-      const isReal = realClauseIds.includes(clauseId);
-      const wasSelected = selectedClauses.includes(clauseId);
-      
-      if (isReal && wasSelected) return '🎯'; // Correct identification
-      if (isReal && !wasSelected) return '❌'; // Missed real clause
-      if (!isReal && wasSelected) return '💥'; // Selected fake clause
-      return '⚪'; // Correctly ignored fake clause
-    }).join('');
+    return `🕵️ I audited today's Terms & Conditions in 30 seconds!
+Found ${score.clausesIdentified}/5 absurd clauses hiding in the fine print.
 
-    return `🔍 T&C Auditor ${new Date().toLocaleDateString()}
-${score.clausesIdentified} clauses identified | Score: ${score.totalScore}/100
+Think you can spot the legal nonsense? 
+Try your luck: tc-auditor.com
 
-${emoji}
-
-Think you can spot the absurd clauses? 
-Play at tc-auditor.com`;
+#FinePrintFinder #TermsAndConditions #LegalNonsense`;
   };
 
   const copyToClipboard = async () => {
