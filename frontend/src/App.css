@@ -4,100 +4,240 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* Mobile-first responsive design */
+html, body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+/* Disable zoom on mobile inputs */
+@media screen and (max-width: 767px) {
+  input, select, textarea {
+    font-size: 16px !important;
+    transform-origin: left top;
+  }
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+/* Custom scrollbar */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 92, 246, 0.6) transparent;
 }
 
-.App-link {
-    color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* Custom scrollbar for reading phase */
 .scrollbar-thin::-webkit-scrollbar {
-    width: 8px;
+  width: 6px;
 }
 
 .scrollbar-thin::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
+  background: transparent;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 4px;
+  background: rgba(139, 92, 246, 0.6);
+  border-radius: 3px;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
+  background: rgba(139, 92, 246, 0.8);
 }
 
-/* Smooth transitions for interactive elements */
-.hover-lift {
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.hover-lift:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-/* Custom animation for score reveal */
+/* Game-specific animations */
 @keyframes scoreReveal {
-    0% { transform: scale(0.8); opacity: 0; }
-    50% { transform: scale(1.1); opacity: 0.8; }
-    100% { transform: scale(1); opacity: 1; }
+  0% { 
+    transform: scale(0.8) rotate(-5deg); 
+    opacity: 0; 
+  }
+  50% { 
+    transform: scale(1.1) rotate(2deg); 
+    opacity: 0.8; 
+  }
+  100% { 
+    transform: scale(1) rotate(0deg); 
+    opacity: 1; 
+  }
 }
 
 .score-reveal {
-    animation: scoreReveal 0.6s ease-out;
+  animation: scoreReveal 1.2s ease-out;
 }
 
 /* Pulse animation for timer */
 @keyframes timerPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+  0% { 
+    transform: scale(1); 
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+  }
+  50% { 
+    transform: scale(1.05); 
+    text-shadow: 0 0 20px rgba(34, 211, 238, 0.8);
+  }
+  100% { 
+    transform: scale(1); 
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+  }
 }
 
 .timer-pulse {
-    animation: timerPulse 1s ease-in-out infinite;
+  animation: timerPulse 1s ease-in-out infinite;
 }
 
-/* Custom gradient backgrounds */
-.gradient-bg {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
-.gradient-text {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Glow effect */
+.glow {
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+}
+
+/* Background effects */
+.bg-pattern {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(34, 211, 238, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(147, 51, 234, 0.1) 0%, transparent 50%);
+}
+
+/* Mobile touch optimizations */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  body {
+    color-scheme: dark;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .bg-gradient-to-br {
+    background: #000 !important;
+  }
+  
+  .text-gray-300 {
+    color: #fff !important;
+  }
+  
+  .border-purple-500\/30 {
+    border-color: #fff !important;
+  }
+}
+
+/* Focus styles for accessibility */
+.focus\:ring-2:focus {
+  outline: 2px solid #34d399;
+  outline-offset: 2px;
+}
+
+/* Custom card hover effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Loading shimmer effect */
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Game button styles */
+.game-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.game-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.game-button:hover::before {
+  left: 100%;
+}
+
+/* Mobile landscape optimizations */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .container {
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .text-6xl, .text-8xl {
+    font-size: 3rem !important;
+  }
+  
+  .py-8 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+}
+
+/* Safe area for mobile devices with notches */
+@supports (padding: max(0px)) {
+  .safe-area-inset {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Improve text readability on mobile */
+@media screen and (max-width: 640px) {
+  .text-sm {
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  .leading-relaxed {
+    line-height: 1.7 !important;
+  }
+}
+
+/* Performance optimizations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
 }
