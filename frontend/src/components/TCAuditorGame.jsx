@@ -174,6 +174,26 @@ Can you spot the absurd clauses? Play at tc-auditor.com`;
     window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
   };
 
+  if (loading && !currentGame) {
+    return <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="text-center">
+        <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4" />
+        <div>Loading today's audit...</div>
+      </div>
+    </div>;
+  }
+
+  if (error) {
+    return <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="text-center">
+        <div className="text-red-600 mb-4">{error}</div>
+        <Button onClick={() => window.location.reload()}>
+          Try Again
+        </Button>
+      </div>
+    </div>;
+  }
+
   if (!currentGame) {
     return <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
       <div className="text-center">Loading today's audit...</div>
