@@ -486,7 +486,10 @@ Try your luck: tc-auditor.com
         <div className="container mx-auto px-4 py-8 max-w-4xl">
           <div className="mb-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl md:text-3xl font-bold text-cyan-300">⚡ Speed Reading Phase</h2>
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-cyan-300">⚡ Speed Reading Phase</h2>
+                <p className="text-sm text-gray-400 italic">Auditing: {currentGame.title}</p>
+              </div>
               <div className="flex items-center space-x-4">
                 <Button
                   onClick={toggleAudio}
