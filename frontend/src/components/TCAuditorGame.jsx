@@ -307,8 +307,12 @@ const TCAuditorGame = () => {
   };
 
   const generateShareText = () => {
+    const description = getScoreDescription(score.clausesIdentified);
     return `🕵️ I audited today's Terms & Conditions in 30 seconds!
 Found ${score.clausesIdentified}/5 absurd clauses hiding in the fine print.
+Score: ${score.totalScore}/100 
+
+${description}
 
 Think you can spot the legal nonsense? 
 Try your luck: tc-auditor.com
