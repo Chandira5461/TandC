@@ -296,10 +296,17 @@ Can you spot the absurd clauses? Play at tc-auditor.com`;
               </span>
               <Button 
                 onClick={submitQuiz}
-                disabled={selectedClauses.length !== 5}
-                className="bg-green-600 hover:bg-green-700"
+                disabled={selectedClauses.length !== 5 || loading}
+                className="bg-green-600 hover:bg-green-700 disabled:opacity-50"
               >
-                Submit Audit
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  'Submit Audit'
+                )}
               </Button>
             </div>
           </div>
