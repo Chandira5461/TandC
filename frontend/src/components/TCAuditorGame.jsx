@@ -507,7 +507,7 @@ Try your luck: tc-auditor.com
               <CardTitle className="text-lg text-white">{currentGame.title}</CardTitle>
             </CardHeader>
             <CardContent className="h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-600 scrollbar-track-transparent">
-              <div className="whitespace-pre-line text-sm leading-relaxed text-gray-200 p-4">
+              <div className="whitespace-pre-line text-xs leading-tight text-gray-200 p-4 font-mono">
                 {currentGame.tc_text}
               </div>
             </CardContent>
