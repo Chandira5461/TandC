@@ -127,7 +127,50 @@ const TCAuditorGame = () => {
     
     // Start background audio if enabled
     if (isAudioEnabled && audioRef.current) {
-      audioRef.current.play().catch(e => console.log('Audio play failed:', e));
+      // Reset audio to start
+      audioRef.current.currentTime = 0;
+      const playPromise = audioRef.current.play();
+      
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            console.log("Audio started successfully");
+          })
+          .catch(error => {
+            console.log("Audio play failed:", error);
+            // Create a simple audio context for background tone
+            createBackgroundTone();
+          });
+      }
+    }
+  };
+
+  const createBackgroundTone = () => {
+    try {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.frequency.setValueAtTime(220, audioContext.currentTime); // A3 note
+      oscillator.type = 'sine';
+      
+      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Low volume
+      
+      oscillator.start();
+      
+      // Stop after 30 seconds or when game state changes
+      setTimeout(() => {
+        if (oscillator) {
+          oscillator.stop();
+          audioContext.close();
+        }
+      }, 30000);
+      
+    } catch (error) {
+      console.log("Web Audio API not supported:", error);
     }
   };
 
