@@ -3,9 +3,9 @@ import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Progress } from './ui/progress';
 import { Badge } from './ui/badge';
-import { mockGameData } from '../data/mockData';
-import { Clock, Share2, Copy, Trophy, CheckCircle, XCircle } from 'lucide-react';
+import { Clock, Share2, Copy, Trophy, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
+import axios from 'axios';
 
 const TCAuditorGame = () => {
   const [gameState, setGameState] = useState('welcome'); // welcome, reading, quiz, results
