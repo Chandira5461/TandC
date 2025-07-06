@@ -708,7 +708,10 @@ Try your luck: tc-auditor.com
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-xl md:text-2xl font-bold mb-4 text-cyan-300">📜 Today's Real Absurd Clauses</h3>
+            <div>
+              <h3 className="text-xl md:text-2xl font-bold mb-2 text-cyan-300">📜 Today's Real Absurd Clauses</h3>
+              <p className="text-sm text-gray-400 italic mb-4">Hidden in: {currentGame.title}</p>
+            </div>
             {currentGame.real_absurd_clauses.map((clause, index) => (
               <Card key={clause.id} className="bg-gradient-to-r from-green-900/40 to-emerald-900/40 border-green-400/50 backdrop-blur-sm">
                 <CardContent className="p-4">
