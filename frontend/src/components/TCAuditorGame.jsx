@@ -67,9 +67,10 @@ const TCAuditorGame = () => {
     setSelectedClauses([]);
     setScore(null);
     setUserAnswers([]);
+    setGameStartTime(Date.now());
   };
 
-  const submitQuiz = () => {
+  const submitQuiz = async () => {
     if (selectedClauses.length !== 5) {
       toast({
         title: "Incomplete Selection",
@@ -79,39 +80,57 @@ const TCAuditorGame = () => {
       return;
     }
 
-    // Calculate score
-    const realClauseIds = currentGame.real_absurd_clauses.map(c => c.id);
-    const correctAnswers = selectedClauses.filter(id => realClauseIds.includes(id));
-    const baseScore = correctAnswers.length;
-    
-    // Simple bonus calculation (mock)
-    const bonusScore = correctAnswers.length * 0.2;
-    const finalScore = baseScore + bonusScore;
+    try {
+      setLoading(true);
+      
+      const completionTime = gameStartTime ? Math.floor((Date.now() - gameStartTime) / 1000) : 0;
+      
+      const response = await axios.post(`${API}/game/submit`, {
+        game_date: currentGame.date,
+        session_id: sessionId,
+        selected_clauses: selectedClauses,
+        completion_time: completionTime
+      });
 
-    setScore({
-      base: baseScore,
-      bonus: bonusScore,
-      total: finalScore,
-      maxScore: 5
-    });
+      const scoreData = response.data;
+      
+      setScore({
+        base: scoreData.base_score,
+        bonus: scoreData.bonus_score,
+        total: scoreData.total_score,
+        maxScore: scoreData.max_score,
+        breakdown: scoreData.legal_detector_breakdown
+      });
 
-    // Store user answers for results display
-    const allClauses = [...currentGame.real_absurd_clauses, ...currentGame.fake_absurd_clauses];
-    const answers = currentGame.quiz_order.map(clauseId => {
-      const clause = allClauses.find(c => c.id === clauseId);
-      const isReal = realClauseIds.includes(clauseId);
-      const wasSelected = selectedClauses.includes(clauseId);
-      return {
-        id: clauseId,
-        text: clause.text,
-        isReal,
-        wasSelected,
-        correct: (isReal && wasSelected) || (!isReal && !wasSelected)
-      };
-    });
-    
-    setUserAnswers(answers);
-    setGameState('results');
+      // Create user answers for results display
+      const realClauseIds = currentGame.real_absurd_clauses.map(c => c.id);
+      const allClauses = [...currentGame.real_absurd_clauses, ...currentGame.fake_absurd_clauses];
+      const answers = currentGame.quiz_order.map(clauseId => {
+        const clause = allClauses.find(c => c.id === clauseId);
+        const isReal = realClauseIds.includes(clauseId);
+        const wasSelected = selectedClauses.includes(clauseId);
+        return {
+          id: clauseId,
+          text: clause.text,
+          isReal,
+          wasSelected,
+          correct: (isReal && wasSelected) || (!isReal && !wasSelected)
+        };
+      });
+      
+      setUserAnswers(answers);
+      setGameState('results');
+      
+    } catch (err) {
+      console.error('Error submitting quiz:', err);
+      toast({
+        title: "Submission Error",
+        description: "Failed to submit your results. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const generateShareText = () => {
