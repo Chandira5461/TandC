@@ -222,13 +222,13 @@ async def migrate_complete_data():
     # Show sample data
     meta_game = await games_collection.find_one({"date": "2025-07-07"})
     if meta_game:
-        print(f"   ✅ Day 1: {meta_game['date']} - {meta_game['company']} (Meta)")
+        print(f"   ✅ Day 1: {meta_game['date']} - {meta_game['title']}")
         print(f"      Real clauses: {len(meta_game['real_absurd_clauses'])}")
         print(f"      Sample real clause: '{meta_game['real_absurd_clauses'][0]['text'][:80]}...'")
     
     slack_game = await games_collection.find_one({"date": "2025-08-02"})
     if slack_game:
-        print(f"   ✅ Day 27: {slack_game['date']} - {slack_game['company']} (Slack)")
+        print(f"   ✅ Day 27: {slack_game['date']} - {slack_game['title']}")
     
     print(f"\n🎉 Complete Migration Successful!")
     print(f"📊 Final Summary:")
