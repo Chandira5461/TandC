@@ -162,11 +162,14 @@ backend:
     file: "/app/backend/routes/game.py"
     stuck_count: 1
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "testing"
         comment: "Submitting results for non-existent games returns 500 error instead of creating fallback game or returning appropriate error. Error log shows: 'Error submitting game result: 404: Game not found for this date'"
+      - working: false
+        agent: "testing"
+        comment: "The issue persists. When submitting results for a non-existent game (date 2000-01-01), the API returns a 500 error instead of creating a fallback game or returning a proper 404 error. This needs to be fixed in the submit_game_result function to either create a fallback game (like the GET endpoint does) or handle the 404 error gracefully."
 
   - task: "Error Handling for Malformed Requests"
     implemented: true
