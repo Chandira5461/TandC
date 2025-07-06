@@ -627,7 +627,8 @@ Try your luck: tc-auditor.com
         <div className="container mx-auto px-4 py-8 max-w-4xl">
           <div className="text-center mb-8">
             <div className="relative">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-cyan-300">🏆 Audit Complete!</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-2 text-cyan-300">🏆 Audit Complete!</h2>
+              <p className="text-sm text-gray-400 italic mb-6">Final report: {currentGame.title}</p>
               <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full animate-bounce">
                 <Trophy className="w-5 h-5 text-yellow-900 m-1.5" />
               </div>
