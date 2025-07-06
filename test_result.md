@@ -101,3 +101,98 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Test the T&C Auditor backend API that I just created. Please test the following endpoints: 1. Basic API Health Check, 2. Daily Game Data, 3. Game Result Submission, 4. Game Statistics, 5. Error Handling."
+
+backend:
+  - task: "API Health Check"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "API health endpoint (/api/) returns 'T&C Auditor API is running' with 200 status code."
+
+  - task: "Daily Game Data"
+    implemented: true
+    working: true
+    file: "/app/backend/routes/game.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "GET /api/game/{date} endpoint works correctly for valid dates, returning game data. Fallback game creation works for dates without existing data. Invalid date format returns 400 error."
+
+  - task: "Game Result Submission"
+    implemented: true
+    working: true
+    file: "/app/backend/routes/game.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "POST /api/game/submit endpoint correctly processes game results, calculates scores, and returns appropriate response. Base score and bonus score calculations work as expected."
+
+  - task: "Game Statistics"
+    implemented: true
+    working: false
+    file: "/app/backend/routes/game.py"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "GET /api/stats/{date} endpoint returns 500 error. Issue appears to be related to MongoDB ObjectId serialization: ValueError: [TypeError(\"'ObjectId' object is not iterable\"), TypeError('vars() argument must have __dict__ attribute')]"
+
+  - task: "Error Handling for Non-existent Games"
+    implemented: true
+    working: false
+    file: "/app/backend/routes/game.py"
+    stuck_count: 1
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "Submitting results for non-existent games returns 500 error instead of creating fallback game or returning appropriate error. Error log shows: 'Error submitting game result: 404: Game not found for this date'"
+
+  - task: "Error Handling for Malformed Requests"
+    implemented: true
+    working: true
+    file: "/app/backend/routes/game.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "API correctly handles malformed request bodies, returning 422 Unprocessable Entity status code."
+
+metadata:
+  created_by: "testing_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Game Statistics"
+    - "Error Handling for Non-existent Games"
+  stuck_tasks:
+    - "Game Statistics"
+    - "Error Handling for Non-existent Games"
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "testing"
+    message: "I've tested all the backend API endpoints. Most endpoints are working correctly, but there are two issues: 1) The Game Statistics endpoint returns a 500 error due to MongoDB ObjectId serialization issues, and 2) Submitting results for non-existent games also returns a 500 error instead of creating a fallback game or returning an appropriate error. The main issue appears to be related to MongoDB ObjectId serialization in the JSON response. The main agent should fix these issues by ensuring proper serialization of MongoDB ObjectIds."
