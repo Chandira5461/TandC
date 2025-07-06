@@ -385,8 +385,9 @@ Play at tc-auditor.com`;
         ref={audioRef}
         loop
         preload="auto"
+        crossOrigin="anonymous"
       >
-        <source src="https://www.soundjay.com/misc/sounds/clock-ticking-3.mp3" type="audio/mpeg" />
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmMcBDOHz+fUeSYEIHO+7OWYSgYPVK3j6KhVFApGnt8eoHMdBDOEze3YfSsEJXLH7eOYSgYPVqvm6ap3GQUJhs/j6KNZEAxQnuPx0GwjAy51zuHGeSYHKnf6xGE7ZSsBB2+c7OWFQAgOXavj5KhVFApEmt4ejoRtJD6FzuvYfSsFJXHG7uWSTS" type="audio/wav" />
       </audio>
 
       {/* Welcome State */}
