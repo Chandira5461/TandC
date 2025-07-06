@@ -180,7 +180,13 @@ const TCAuditorGame = () => {
       if (isAudioEnabled) {
         audioRef.current.pause();
       } else if (gameState === 'reading') {
-        audioRef.current.play().catch(e => console.log('Audio play failed:', e));
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(e => {
+            console.log('Audio play failed:', e);
+            createBackgroundTone();
+          });
+        }
       }
     }
   };
