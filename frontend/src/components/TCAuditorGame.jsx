@@ -592,7 +592,7 @@ Try your luck: tc-auditor.com
                       >
                         {String.fromCharCode(65 + index)}
                       </Badge>
-                      <p className="text-sm flex-1 text-gray-200 leading-relaxed">{clause.text}</p>
+                      <p className="text-xs flex-1 text-gray-200 leading-tight font-mono">{clause.text}</p>
                       {isSelected && (
                         <div className="animate-bounce">
                           <CheckCircle className="w-6 h-6 text-cyan-400" />
