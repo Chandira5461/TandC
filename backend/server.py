@@ -11,7 +11,7 @@ import uuid
 from datetime import datetime
 
 # Import the game routes
-from backend.routes.game import router as game_router
+from .routes.game import router as game_router
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
