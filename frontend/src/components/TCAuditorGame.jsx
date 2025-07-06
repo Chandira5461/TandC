@@ -618,35 +618,38 @@ Play at tc-auditor.com`;
             </div>
             
             <div className="bg-gradient-to-br from-black/50 to-purple-900/30 rounded-2xl p-8 shadow-2xl mb-8 backdrop-blur-sm border border-purple-500/30">
-              <div className="text-6xl md:text-8xl font-black bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent mb-4 score-reveal">
-                {score.total.toFixed(1)}
-              </div>
-              <div className="text-xl md:text-2xl text-gray-300 mb-4 font-bold">Legal Detector Score</div>
-              <div className="text-sm text-gray-400 mb-6">
-                Base Score: <span className="text-cyan-300 font-bold">{score.base}/5</span> + Bonus: <span className="text-purple-300 font-bold">{score.bonus.toFixed(1)}</span>
-                {score.breakdown && Object.keys(score.breakdown).length > 0 && (
-                  <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
-                    {Object.entries(score.breakdown).map(([clauseId, data]) => (
-                      <div key={clauseId} className="bg-black/30 rounded-lg p-2 border border-purple-500/30">
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-300">Clause {clauseId.replace('rac', '')}</span>
-                          <span className={`font-bold px-2 py-1 rounded text-xs ${
-                            data.rarity === 'rare' ? 'bg-red-600/30 text-red-300' :
-                            data.rarity === 'moderate' ? 'bg-yellow-600/30 text-yellow-300' :
-                            'bg-green-600/30 text-green-300'
-                          }`}>
-                            {data.rarity}
-                          </span>
-                        </div>
-                        <div className="text-purple-300 font-bold">+{data.bonus}</div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+              <div className="mb-6">
+                <div className="text-2xl md:text-3xl text-cyan-300 font-bold mb-2">
+                  {score.clausesIdentified} Clauses Identified
+                </div>
+                <div className="text-6xl md:text-8xl font-black bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent score-reveal">
+                  {score.totalScore}
+                </div>
+                <div className="text-xl md:text-2xl text-gray-300 font-bold">Score out of 100</div>
               </div>
               
+              {score.breakdown && Object.keys(score.breakdown).length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {Object.entries(score.breakdown).map(([clauseId, data]) => (
+                    <div key={clauseId} className="bg-black/30 rounded-lg p-3 border border-purple-500/30">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-gray-300 text-sm">Clause {clauseId.replace('rac', '')}</span>
+                        <span className={`font-bold px-2 py-1 rounded text-xs ${
+                          data.rarity === 'rare' ? 'bg-red-600/30 text-red-300' :
+                          data.rarity === 'moderate' ? 'bg-yellow-600/30 text-yellow-300' :
+                          'bg-green-600/30 text-green-300'
+                        }`}>
+                          {data.rarity}
+                        </span>
+                      </div>
+                      <div className="text-purple-300 font-bold text-lg">+{data.points} pts</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              
               {/* Countdown to tomorrow */}
-              <div className="bg-black/40 rounded-xl p-4 mb-6 border border-yellow-500/30">
+              <div className="bg-black/40 rounded-xl p-4 mt-6 border border-yellow-500/30">
                 <div className="text-yellow-300 font-bold mb-2">⏱️ Next Challenge In:</div>
                 <div className="text-2xl md:text-3xl font-mono font-bold text-yellow-400">{countdown}</div>
               </div>
