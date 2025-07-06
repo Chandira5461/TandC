@@ -187,6 +187,10 @@ async def get_game_stats(
         if not stats:
             return {"date": game_date, "total_players": 0, "clause_stats": {}, "average_score": 0.0}
         
+        # Remove MongoDB ObjectId to avoid serialization issues
+        if "_id" in stats:
+            del stats["_id"]
+        
         return stats
     
     except Exception as e:
