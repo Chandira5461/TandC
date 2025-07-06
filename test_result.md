@@ -191,10 +191,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Game Statistics"
     - "Error Handling for Non-existent Games"
   stuck_tasks:
-    - "Game Statistics"
     - "Error Handling for Non-existent Games"
   test_all: false
   test_priority: "high_first"
