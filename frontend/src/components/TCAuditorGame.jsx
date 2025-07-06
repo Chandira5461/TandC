@@ -14,14 +14,39 @@ const TCAuditorGame = () => {
   const [selectedClauses, setSelectedClauses] = useState([]);
   const [score, setScore] = useState(null);
   const [userAnswers, setUserAnswers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [sessionId] = useState(() => Math.random().toString(36).substr(2, 9));
+  const [gameStartTime, setGameStartTime] = useState(null);
   const { toast } = useToast();
+
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  const API = `${BACKEND_URL}/api`;
 
   // Load today's game data
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
-    const gameData = mockGameData[today] || mockGameData['2025-01-20']; // fallback
-    setCurrentGame(gameData);
+    loadGameData(today);
   }, []);
+
+  const loadGameData = async (date) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await axios.get(`${API}/game/${date}`);
+      setCurrentGame(response.data);
+    } catch (err) {
+      console.error('Error loading game data:', err);
+      setError('Failed to load today\'s game. Please try again.');
+      toast({
+        title: "Error",
+        description: "Failed to load today's game. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Timer logic
   useEffect(() => {
