@@ -626,7 +626,14 @@ Try your luck: tc-auditor.com
                 <div className="text-6xl md:text-8xl font-black bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent score-reveal">
                   {score.totalScore}
                 </div>
-                <div className="text-xl md:text-2xl text-gray-300 font-bold">Score out of 100</div>
+                <div className="text-xl md:text-2xl text-gray-300 font-bold mb-4">Score out of 100</div>
+                
+                {/* Interactive Score Description */}
+                <div className="bg-black/40 rounded-xl p-4 mb-6 border border-cyan-500/30">
+                  <div className="text-cyan-300 font-bold text-lg md:text-xl text-center animate-pulse">
+                    {getScoreDescription(score.clausesIdentified)}
+                  </div>
+                </div>
               </div>
               
               {score.breakdown && Object.keys(score.breakdown).length > 0 && (
