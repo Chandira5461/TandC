@@ -307,7 +307,7 @@ const TCAuditorGame = () => {
     }).join('');
 
     return `🔍 T&C Auditor ${new Date().toLocaleDateString()}
-Legal Detector Score: ${score.total.toFixed(1)}/5.0 🏆
+${score.clausesIdentified} clauses identified | Score: ${score.totalScore}/100
 
 ${emoji}
 
